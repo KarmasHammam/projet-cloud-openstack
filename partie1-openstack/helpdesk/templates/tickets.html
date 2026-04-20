@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Tickets — Help Desk{% endblock %}
+{% block content %}
+<div class="main">
+    <div class="topbar">
+        <div><h1>🎫 Tickets</h1><div class="breadcrumb">Accueil / Tickets</div></div>
+        <a href="/ticket/new" class="btn btn-primary">➕ Nouveau ticket</a>
+    </div>
+    <div class="card">
+        <form method="GET" style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
+            <div>
+                <label style="font-size:12px;font-weight:600;color:#5d6d8a;display:block;margin-bottom:5px">STATUT</label>
+                <select name="statut" class="form-control" style="width:160px">
+                    <option value="">Tous</option>
+                    <option value="ouvert" {% if filtre_statut=='ouvert' %}selected{% endif %}>Ouvert</option>
+                    <option value="en_cours" {% if filtre_statut=='en_cours' %}selected{% endif %}>En cours</option>
+                    <option value="resolu" {% if filtre_statut=='resolu' %}selected{% endif %}>Résolu</option>
+                </select>
+            </div>
+            <div>
+                <label style="font-size:12px;font-weight:600;color:#5d6d8a;display:block;margin-bottom:5px">PRIORITÉ</label>
+                <select name="priorite" class="form-control" style="width:160px">
+                    <option value="">Toutes</option>
+                    <option value="haute" {% if filtre_priorite=='haute' %}selected{% endif %}>Haute</option>
+                    <option value="moyenne" {% if filtre_priorite=='moyenne' %}selected{% endif %}>Moyenne</option>
+                    <option value="basse" {% if filtre_priorite=='basse' %}selected{% endif %}>Basse</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrer</button>
+            <a href="/tickets" class="btn btn-warning">Réinitialiser</a>
+        </form>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div><div class="card-title">Liste des tickets</div><div class="card-subtitle">{{ tickets|length }} ticket(s)</div></div>
+        </div>
+        {% if tickets %}
+        <table>
+            <thead><tr><th>#</th><th>Titre</th><th>Priorité</th><th>Statut</th><th>Créé par</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody>
+            {% for t in tickets %}
+            <tr>
+                <td style="color:#8892a4">#{{ t.id }}</td>
+                <td style="font-weight:500">{{ t.titre }}</td>
+                <td><span class="badge badge-{{ t.priorite }}">{{ t.priorite.capitalize() }}</span></td>
+                <td><span class="badge badge-{{ t.statut }}">{{ t.statut.replace('_',' ').capitalize() }}</span></td>
+                <td>{{ t.creator or '—' }}</td>
+                <td style="font-size:12px;color:#8892a4">{{ t.created_at[:10] }}</td>
+                <td style="display:flex;gap:6px">
+                    <a href="/ticket/{{ t.id }}" class="btn btn-primary btn-sm">Voir</a>
+                    {% if session.get('role') == 'admin' %}
+                    <form method="POST" action="/ticket/delete/{{ t.id }}" style="margin:0">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Supprimer ?')">🗑</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div style="text-align:center;padding:30px;color:#8892a4">Aucun ticket trouvé</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

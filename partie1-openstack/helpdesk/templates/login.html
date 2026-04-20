@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Help Desk — Connexion</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", sans-serif; background: #f0f2f5; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .login-box { background: white; border-radius: 16px; padding: 40px; width: 400px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+        .logo { text-align: center; margin-bottom: 30px; }
+        .logo .icon { font-size: 48px; }
+        .logo h1 { font-size: 24px; color: #1a1a2e; margin-top: 10px; }
+        .logo p { font-size: 13px; color: #8892a4; margin-top: 4px; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 600; color: #5d6d8a; text-transform: uppercase; margin-bottom: 6px; }
+        .form-group input { width: 100%; padding: 11px 14px; border: 1.5px solid #e8ecf0; border-radius: 9px; font-size: 14px; }
+        .btn-login { width: 100%; padding: 12px; background: #3498db; color: white; border: none; border-radius: 9px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 8px; }
+        .error { background: #fdedec; color: #e74c3c; border: 1px solid #f1948a; border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-bottom: 16px; }
+        .accounts { margin-top: 24px; padding-top: 20px; border-top: 1px solid #f0f2f5; }
+        .accounts p { font-size: 12px; color: #8892a4; margin-bottom: 8px; font-weight: 600; text-transform: uppercase; }
+        .account-item { display: flex; justify-content: space-between; font-size: 12px; color: #5d6d8a; padding: 4px 0; }
+        .role-badge { padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+        .role-admin { background: #fdedec; color: #e74c3c; }
+        .role-tech { background: #fef9e7; color: #f39c12; }
+        .role-user { background: #e8f8f0; color: #27ae60; }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <div class="logo">
+            <div class="icon">🎫</div>
+            <h1>Help Desk</h1>
+            <p>OpenStack SaaS — Prof. C. EL AMRANI</p>
+        </div>
+        {% if error %}<div class="error">{{ error }}</div>{% endif %}
+        <form method="POST">
+            <div class="form-group">
+                <label>Nom d'utilisateur</label>
+                <input type="text" name="username" required>
+            </div>
+            <div class="form-group">
+                <label>Mot de passe</label>
+                <input type="password" name="password" required>
+            </div>
+            <button type="submit" class="btn-login">Se connecter</button>
+        </form>
+        <div class="accounts">
+            <p>Comptes disponibles</p>
+            <div class="account-item"><span>admin / admin123</span><span class="role-badge role-admin">Admin</span></div>
+            <div class="account-item"><span>technicien1 / tech123</span><span class="role-badge role-tech">Technicien</span></div>
+            <div class="account-item"><span>utilisateur1 / user123</span><span class="role-badge role-user">Utilisateur</span></div>
+        </div>
+    </div>
+</body>
+</html>
