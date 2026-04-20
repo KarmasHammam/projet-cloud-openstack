@@ -29,23 +29,28 @@ Deploiement d'une infrastructure Cloud privee complete utilisant OpenStack DevSt
 ---
 
 ## Structure du projet
-projet-cloud-openstack/
-├── partie1-openstack/
-│   ├── helpdesk/
-│   │   ├── app.py
-│   │   ├── database.py
-│   │   └── templates/
-│   └── cloudtasks/
-│       └── app.py
-├── partie2-terraform/
-│   └── main.tf
-├── partie3-sla/
-│   ├── sla.json
-│   ├── monitor.py
-│   └── rapport_disponibilite.json
-└── ansible/
-├── inventory.ini
-└── playbook.yml
+
+    projet-cloud-openstack/
+    |
+    |-- partie1-openstack/
+    |   |-- helpdesk/
+    |   |   |-- app.py
+    |   |   |-- database.py
+    |   |   `-- templates/
+    |   `-- cloudtasks/
+    |       `-- app.py
+    |
+    |-- partie2-terraform/
+    |   `-- main.tf
+    |
+    |-- partie3-sla/
+    |   |-- sla.json
+    |   |-- monitor.py
+    |   `-- rapport_disponibilite.json
+    |
+    `-- ansible/
+        |-- inventory.ini
+        `-- playbook.yml
 
 ---
 
