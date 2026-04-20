@@ -1,0 +1,10 @@
+*.pem
+*.ppk
+*.db
+*.log
+__pycache__/
+*.pyc
+.terraform/
+*.tfstate
+*.tfstate.backup
+clouds.yaml

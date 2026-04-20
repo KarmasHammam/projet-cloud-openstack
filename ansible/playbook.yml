@@ -1,0 +1,50 @@
+---
+- name: Déploiement serveur web sur CentOS avec Ansible
+  hosts: centos_servers
+  become: yes
+
+  vars:
+    page_titre: "OpenStack Cloud Computing"
+    etudiant: "Projet Cloud et Edge Computing"
+    professeur: "Prof. C. EL AMRANI"
+    web_dir: /tmp/webserver
+    web_port: 8888
+
+  tasks:
+    - name: "1 - Créer le dossier du serveur web"
+      file:
+        path: "{{ web_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: "2 - Créer la page HTML"
+      copy:
+        dest: "{{ web_dir }}/index.html"
+        mode: '0644'
+        content: "<html><head><meta charset=UTF-8><title>OpenStack</title></head><body style='background:linear-gradient(135deg,#1a1a2e,#16213e);min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:Segoe UI,sans-serif;color:white'><div style='background:rgba(255,255,255,0.1);border-radius:20px;padding:50px;text-align:center;max-width:600px;border:1px solid rgba(255,255,255,0.2)'><div style='font-size:64px'>☁️</div><h1 style='color:#3498db;font-size:32px;margin:15px 0'>OpenStack Cloud Computing</h1><h2 style='color:#a8b2d8;font-size:18px;margin-bottom:30px'>Projet Cloud et Edge Computing</h2><div style='background:rgba(255,255,255,0.05);border-radius:12px;padding:15px;margin-bottom:12px'><div style='font-size:11px;color:#a8b2d8;text-transform:uppercase'>Professeur</div><div style='font-size:16px;font-weight:bold;margin-top:5px'>Prof. C. EL AMRANI</div></div><div style='background:rgba(255,255,255,0.05);border-radius:12px;padding:15px;margin-bottom:12px'><div style='font-size:11px;color:#a8b2d8;text-transform:uppercase'>Serveur</div><div style='font-size:16px;font-weight:bold;margin-top:5px'>CentOS 7 centos-terraform</div></div><div style='background:rgba(255,255,255,0.05);border-radius:12px;padding:15px;margin-bottom:12px'><div style='font-size:11px;color:#a8b2d8;text-transform:uppercase'>Deploye par</div><div style='font-size:16px;font-weight:bold;margin-top:5px'>Ansible Automation</div></div><div style='background:rgba(255,255,255,0.05);border-radius:12px;padding:15px;margin-bottom:20px'><div style='font-size:11px;color:#a8b2d8;text-transform:uppercase'>Infrastructure</div><div style='font-size:16px;font-weight:bold;margin-top:5px'>OpenStack + Terraform + Ansible</div></div><div style='display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:20px'><span style='background:rgba(52,152,219,0.2);border:1px solid rgba(52,152,219,0.3);padding:5px 14px;border-radius:20px;font-size:13px;color:#3498db'>Terraform</span><span style='background:rgba(52,152,219,0.2);border:1px solid rgba(52,152,219,0.3);padding:5px 14px;border-radius:20px;font-size:13px;color:#3498db'>Ansible</span><span style='background:rgba(52,152,219,0.2);border:1px solid rgba(52,152,219,0.3);padding:5px 14px;border-radius:20px;font-size:13px;color:#3498db'>OpenStack</span><span style='background:rgba(52,152,219,0.2);border:1px solid rgba(52,152,219,0.3);padding:5px 14px;border-radius:20px;font-size:13px;color:#3498db'>Python</span></div><div style='background:#27ae60;color:white;padding:8px 24px;border-radius:20px;font-size:14px;display:inline-block'>Deploiement Ansible Reussi !</div></div></body></html>"
+
+    - name: "3 - Arreter ancien serveur web si existe"
+      shell: pkill -f "SimpleHTTPServer" || true
+      ignore_errors: yes
+
+    - name: "4 - Lancer le serveur web Python"
+      shell: "nohup python -m SimpleHTTPServer {{ web_port }} > /tmp/webserver.log 2>&1 &"
+      args:
+        chdir: "{{ web_dir }}"
+
+    - name: "5 - Attendre que le serveur demarre"
+      wait_for:
+        port: "{{ web_port }}"
+        host: localhost
+        delay: 3
+        timeout: 30
+
+    - name: "6 - Verifier que le serveur repond"
+      uri:
+        url: "http://localhost:{{ web_port }}"
+        status_code: 200
+      register: web_result
+
+    - name: "7 - Afficher le resultat"
+      debug:
+        msg: "Serveur web ACTIF - http://172.24.4.24:8888"

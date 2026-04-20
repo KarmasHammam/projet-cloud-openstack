@@ -1,0 +1,38 @@
+{
+  "rapport_disponibilite": {
+    "titre": "Rapport de Disponibilité OpenStack",
+    "module": "Cloud et Edge Computing",
+    "professeur": "Prof. C. EL AMRANI",
+    "date": "2026-04-20",
+    "heure": "22:35:15",
+    "resultats": {
+      "disponibilite_calculee": 0.0,
+      "disponibilite_cible": 99.5,
+      "objectif_respecte": false,
+      "statut_global": "❌ CRITIQUE",
+      "instances_actives": 0,
+      "instances_total": 3,
+      "details_instances": [
+        {
+          "instance": "instance-cirros",
+          "status": "SHUTOFF",
+          "disponible": false,
+          "timestamp": "2026-04-20 22:35:07"
+        },
+        {
+          "instance": "instance-ubuntu",
+          "status": "SHUTOFF",
+          "disponible": false,
+          "timestamp": "2026-04-20 22:35:11"
+        },
+        {
+          "instance": "centos-terraform",
+          "status": "SHUTOFF",
+          "disponible": false,
+          "timestamp": "2026-04-20 22:35:15"
+        }
+      ]
+    },
+    "conclusion": "L'objectif de disponibilité de 99.5% N'EST PAS RESPECTÉ."
+  }
+}

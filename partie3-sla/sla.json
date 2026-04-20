@@ -1,0 +1,53 @@
+{
+  "sla": {
+    "nom": "SLA OpenStack DevStack",
+    "version": "1.0",
+    "date_creation": "2026-04-09",
+    "professeur": "Prof. C. EL AMRANI",
+    "module": "Cloud et Edge Computing",
+    "description": "Accord de Niveau de Service pour la surveillance des instances OpenStack",
+    "objectifs": {
+      "disponibilite_cible": 99.5,
+      "periode_evaluation": "journalière",
+      "frequence_surveillance": "5 minutes",
+      "unite": "pourcentage"
+    },
+    "instances_surveillees": [
+      "instance-cirros",
+      "instance-ubuntu",
+      "centos-terraform"
+    ],
+    "seuils": {
+      "critique": 95.0,
+      "avertissement": 98.0,
+      "nominal": 99.5
+    },
+    "rapport": {
+      "derniere_verification": "2026-04-20 22:35:15",
+      "disponibilite_calculee": 0.0,
+      "disponibilite_cible": 99.5,
+      "objectif_respecte": false,
+      "statut": "❌ CRITIQUE",
+      "details": [
+        {
+          "instance": "instance-cirros",
+          "status": "SHUTOFF",
+          "disponible": false,
+          "timestamp": "2026-04-20 22:35:07"
+        },
+        {
+          "instance": "instance-ubuntu",
+          "status": "SHUTOFF",
+          "disponible": false,
+          "timestamp": "2026-04-20 22:35:11"
+        },
+        {
+          "instance": "centos-terraform",
+          "status": "SHUTOFF",
+          "disponible": false,
+          "timestamp": "2026-04-20 22:35:15"
+        }
+      ]
+    }
+  }
+}
