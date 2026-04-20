@@ -107,10 +107,11 @@ terraform apply   # VM creee en 33 secondes
 ```
 
 ### Resultat monitoring
-instance-cirros   : ACTIVE
-instance-ubuntu   : ACTIVE
-centos-terraform  : ACTIVE
-Disponibilite     : 100.0% - SLA RESPECTE
+
+    instance-cirros   : ACTIVE
+    instance-ubuntu   : ACTIVE
+    centos-terraform  : ACTIVE
+    Disponibilite     : 100.0% - SLA RESPECTE
 
 ### Execution automatique
 ```bash
