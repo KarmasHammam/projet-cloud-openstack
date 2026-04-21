@@ -38,3 +38,4 @@ output "instance_name" {
 output "instance_ip" {
   value = openstack_compute_instance_v2.centos_vm.access_ip_v4
 }
+
